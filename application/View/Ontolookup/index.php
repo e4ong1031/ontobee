@@ -61,6 +61,13 @@ $( function() {
                 $( "#adverse-label-display" ).text( 'Selected: ' + radio.parent().text() );
                 $( "#adverse-iri-display" ).text( radio.val() );
                 $( "#adverse-iri-display" ).attr( 'href', radio.val() );
+                $( "#adverse-definition-display" ).text ( '' );
+                var url = 'http://ontobee.org/api/infobox?o=OAE&iri=' + $("#adverse-iri").val();
+        		$.getJSON( url, function( response ) {
+        			data = $.parseJSON( response );
+        			//console.log( data );
+        			$( "#adverse-definition-display" ).text( 'Definition: ' + data.definition );
+        		});
             } );
         },
         activate: function( event, data ) {
@@ -104,6 +111,13 @@ $( function () {
             $( "#adverse-label-display" ).text( 'Selected: ' + ui.item.label );
             $( "#adverse-iri-display" ).text( ui.item.value );
             $( "#adverse-iri-display" ).attr( 'href', ui.item.value );
+            $( "#adverse-definition-display" ).text( '' );
+            var url = 'http://ontobee.org/api/infobox?o=OAE&iri=' + $("#adverse-iri").val();
+    		$.getJSON( url, function( response ) {
+    			data = $.parseJSON( response );
+    			//console.log( data );
+    			$( "#adverse-definition-display" ).text( 'Definition: ' + data.definition );
+    		});
         }
     });
 
@@ -114,11 +128,12 @@ $( function () {
         $( "#adverse-label-display" ).text( 'Selected: ' + radio.parent().text() );
         $( "#adverse-iri-display" ).text( radio.val() );
         $( "#adverse-iri-display" ).attr( 'href', radio.val() );
+        $( "#adverse-definition-display" ).text( '' );
         var url = 'http://ontobee.org/api/infobox?o=OAE&iri=' + $("#adverse-iri").val();
 		$.getJSON( url, function( response ) {
 			data = $.parseJSON( response );
 			//console.log( data );
-			$( "#adverse-definition-display" ).text( data.definition );
+			$( "#adverse-definition-display" ).text( 'Definition: ' + data.definition );
 		});
     } );
 });
