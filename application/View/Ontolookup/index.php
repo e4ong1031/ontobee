@@ -103,7 +103,7 @@ $( function () {
             $( "#adverse-iri" ).val( ui.item.value );
             $( "#adverse-label-display" ).text( 'Selected: ' + ui.item.label );
             $( "#adverse-iri-display" ).text( ui.item.value );
-            $( "#adverse-iri-display" ).attr( 'href', radio.val() );
+            $( "#adverse-iri-display" ).attr( 'href', ui.item.value );
         }
     });
 
@@ -120,12 +120,6 @@ $( function () {
 			//console.log( data );
 			$( "#adverse-definition-display" ).text( data.definition );
 		});
-    } );
-
-    $( "#adverse-iri" ).change( function() {
-        
-    	
-
     } );
 });
 
