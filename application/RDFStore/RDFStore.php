@@ -1194,6 +1194,7 @@ END;
 <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
 <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
 <!ENTITY oboInOwl 'http://www.geneontology.org/formats/oboInOwl#'>
+<!ENTITY foaf 'http://xmlns.com/foaf/0.1/'>
 ]>
 
 <rdf:RDF$header>
