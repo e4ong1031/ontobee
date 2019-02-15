@@ -72,7 +72,7 @@ END;
 <td bgcolor="#EAF1F2"><a href="$download">{$GLOBALS['call_function']( Helper::getShortTerm( $download ) )}</a></td>
 <td bgcolor="#EAF1F2"><a class="term" oncontextmenu="return false;" href="{$site}ontology/$other->ontology_abbrv?iri=
 {$GLOBALS['call_function']( Helper::encodeURL( $termIRI ) )}">
-'$term->label' in {$GLOBALS['call_function']( Helper::getShortTerm( $download ) )}</a></td>
+{$GLOBALS['call_function']( htmlspecialchars( "'$term->label'" ) )} in {$GLOBALS['call_function']( Helper::getShortTerm( $download ) )}</a></td>
 <td bgcolor="#EAF1F2">
 END;
 		if ( $other->home != '' ) {

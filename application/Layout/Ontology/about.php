@@ -179,12 +179,12 @@ END;
 	if ( $term->deprecate ) {
 		$html .=
 <<<END
-<p class="section-title">$term->type: <span class="section-title-value"><strike>$term->label</strike></span></p>
+<p class="section-title">$term->type: <span class="section-title-value"><strike>{$GLOBALS['call_function']( htmlspecialchars( "$term->label" ) )}</strike></span></p>
 END;
 	} else {
 		$html .=
 <<<END
-<p class="section-title">$term->type: <span class="section-title-value">$term->label</span></p>
+<p class="section-title">$term->type: <span class="section-title-value">{$GLOBALS['call_function']( htmlspecialchars( "$term->label" ) )}</span></p>
 END;
 	}
 	
