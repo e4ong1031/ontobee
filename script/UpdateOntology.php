@@ -150,7 +150,7 @@ END;
 				$this->logger->info( 'Newer version is found' );
 				
 				if ( $this->ontology->do_merge == 'y' ) {
-					$this->merge( $this->$downloadURL );
+					$this->merge( $this->downloadURL );
 				}
 				
 				$this->logger->debug( 'Setting MySQL ontology table to loaded=\'n\'' );
