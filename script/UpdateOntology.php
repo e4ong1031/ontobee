@@ -41,6 +41,7 @@ Class UpdateOntology extends Maintenance {
 	
 	private $fileName;
 	private $file;
+	private $downloadURL;
 	
 	public function __construct() {
 		parent::__construct();
@@ -135,6 +136,7 @@ END;
 			$md5 =  md5_file( $this->file );
 			$path = pathinfo( $this->file );
 			
+			
 			$this->logger->debug( "Copying $this->fileName to Ontobee ontology location" );
 			copy( $this->file, SCRIPTPATH . 'ontology' . DIRECTORY_SEPARATOR . $path['basename'] );
 			
@@ -146,6 +148,10 @@ END;
 				$this->logger->info( 'Ontology already up-to-date' );
 			} else {
 				$this->logger->info( 'Newer version is found' );
+				
+				if ( $this->ontology->do_merge == 'y' ) {
+					$this->merge( $this->$downloadURL );
+				}
 				
 				$this->logger->debug( 'Setting MySQL ontology table to loaded=\'n\'' );
 				$sql = "UPDATE ontology SET loaded='n' where id = '{$this->ontology->id}'";
@@ -295,12 +301,9 @@ END;
 		if ( filesize( "$this->tmpDir$this->fileName.owl" ) == 0 ) {
 			unlink( "$this->tmpDir$this->fileName.owl" );
 		}
-		if ( $this->ontology->do_merge == 'y' ) {
-			$this->merge( $downloadURL );
-		} else {
-			if ( file_exists( "$this->tmpDir$this->fileName.owl" ) ) {
-				$this->file = "$this->tmpDir$this->fileName.owl";
-			}
+		if ( file_exists( "$this->tmpDir$this->fileName.owl" ) ) {
+			$this->file = "$this->tmpDir$this->fileName.owl";
+			$this->downloadURL = $downloadURL;
 		}
 	}
 	
