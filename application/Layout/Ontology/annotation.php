@@ -64,7 +64,7 @@ END;
 		$values = $annotation['value'];
 		
 		if ( !in_array( $iri, array(
-				$GLOBALS['ontology']['namespace']['rdfs'] . 'label',
+				#$GLOBALS['ontology']['namespace']['rdfs'] . 'label',
 				$GLOBALS['ontology']['namespace']['rdf'] . 'type',
 				$GLOBALS['ontology']['namespace']['oboInOwl'] . 'Definition',
 				$GLOBALS['ontology']['namespace']['owl'] . 'disjointWith',

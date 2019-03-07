@@ -468,11 +468,17 @@ class OntologyModel {
 		$class->describe = $describeResult['describe'];
 		
 		$preferLabel = array();
+		$annotations = array();
 		foreach( $GLOBALS['ontology']['label']['priority'] as $labelIRI ) {
 			if ( array_key_exists( $labelIRI, $class->describe ) ) {
-				$tmpLabel = $class->describe[$labelIRI];
-				$preferLabel = $tmpLabel[0]['value'];
-				break;
+				foreach( $class->describe[$labelIRI] as $describe ) {
+					if ( isset( $describe['lang'] ) && $describe['lang'] != 'en' ) {
+						$annotations[$labelIRI]['label'] = "label in alternative language";
+						$annotations[$labelIRI]['value'][] = $describe['value'];
+						continue;
+					}
+					$preferLabel = $describe['value'];
+				}
 			}
 		}
 		if ( !empty( $preferLabel ) ) {
@@ -529,10 +535,12 @@ class OntologyModel {
 		$related[$classIRI] = $class;
 		$class->related = $related;
 	
-		$annotations = array();
 		$deprecate = false;
 		
 		foreach ( array_unique( array_keys( $class->describe ) ) as $property ) {
+			if ( in_array( $related[$property]->iri, $GLOBALS['ontology']['label']['priority'] ) ) {
+				continue;
+			}
 			if ( $related[$property]->iri == $GLOBALS['ontology']['namespace']['owl'] . 'deprecated' ) {
 				$deprecate = true;
 				continue;
@@ -606,11 +614,17 @@ class OntologyModel {
 		$property->describe = $describeResult['describe'];
 		
 		$preferLabel = array();
+		$annotations = array();
 		foreach( $GLOBALS['ontology']['label']['priority'] as $labelIRI ) {
 			if ( array_key_exists( $labelIRI, $property->describe ) ) {
-				$tmpLabel = $property->describe[$labelIRI];
-				$preferLabel = $tmpLabel[0]['value'];
-				break;
+				foreach( $property->describe[$labelIRI] as $describe ) {
+					if ( isset( $describe['lang'] ) && $describe['lang'] != 'en' ) {
+						$annotations[$labelIRI]['label'] = "label in alternative language";
+						$annotations[$labelIRI]['value'][] = $describe['value'];
+						continue;
+					}
+					$preferLabel = $describe['value'];
+				}
 			}
 		}
 		if ( !empty( $preferLabel ) ) {
@@ -690,9 +704,11 @@ class OntologyModel {
 		$related[$propertyIRI] = $property;
 		$property->related = $related;
 	
-		$annotations = array();
 		$deprecate = false;
 		foreach ( array_unique( array_keys( $property->describe ) ) as $object ) {
+			if ( in_array( $related[$object]->iri, $GLOBALS['ontology']['label']['priority'] ) ) {
+				continue;
+			}
 			if ( $related[$object]->iri == $GLOBALS['ontology']['namespace']['owl'] . 'deprecated' ) {
 				$deprecate = true;
 				continue;
@@ -769,11 +785,17 @@ class OntologyModel {
 		$instance->describe = $describeResult['describe'];
 	
 		$preferLabel = array();
+		$annotations = array();
 		foreach( $GLOBALS['ontology']['label']['priority'] as $labelIRI ) {
 			if ( array_key_exists( $labelIRI, $instance->describe ) ) {
-				$tmpLabel = $instance->describe[$labelIRI];
-				$preferLabel = $tmpLabel[0]['value'];
-				break;
+				foreach( $instance->describe[$labelIRI] as $describe ) {
+					if ( isset( $describe['lang'] ) && $describe['lang'] != 'en' ) {
+						$annotations[$labelIRI]['label'] = "label in alternative language";
+						$annotations[$labelIRI]['value'][] = $describe['value'];
+						continue;
+					}
+					$preferLabel = $describe['value'];
+				}
 			}
 		}
 		if ( !empty( $preferLabel ) ) {
@@ -833,9 +855,11 @@ class OntologyModel {
 		$related[$instanceIRI] = $instance;
 		$instance->related = $related;
 	
-		$annotations = array();
 		$deprecate = false;
 		foreach ( array_unique( array_keys( $instance->describe ) ) as $property ) {
+			if ( in_array( $related[$property]->iri, $GLOBALS['ontology']['label']['priority'] ) ) {
+				continue;
+			}
 			if ( $related[$property]->iri == $GLOBALS['ontology']['namespace']['owl'] . 'deprecated' ) {
 				$deprecate = true;
 				continue;

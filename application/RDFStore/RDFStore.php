@@ -488,13 +488,19 @@ SELECT ?path ?link ?label FROM <{$graph}> WHERE {
 			{
 				?s rdfs:subClassOf ?o .
 				FILTER (isIRI(?o)).
-				OPTIONAL {?o rdfs:label ?label}
+				OPTIONAL {
+					?o rdfs:label ?label .
+					FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+				}
 			} UNION {
 				?s owl:equivalentClass ?s1 .
 				?s1 owl:intersectionOf ?s2 .
 				?s2 rdf:first ?o  .
 				FILTER (isIRI(?o))
-				OPTIONAL {?o rdfs:label ?label}
+				OPTIONAL {
+					?o rdfs:label ?label .
+					FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+				}
 			}
 			FILTER ( ?s != ?o )
 		}
@@ -537,7 +543,10 @@ PREFIX owl: <{$this->prefixNS['owl']}>
 SELECT DISTINCT ?ref ?refp ?label ?o FROM <$graph> WHERE {
 	?ref ?refp ?o .
 	FILTER ( ?refp IN ( owl:equivalentClass, rdfs:subClassOf ) ) .
-	OPTIONAL { ?ref rdfs:label ?label } .
+	OPTIONAL {
+		?ref rdfs:label ?label
+		FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+	} .
 	{
 		{
 			SELECT ?s ?o FROM <$graph> WHERE {
@@ -628,19 +637,28 @@ SELECT DISTINCT ?term ?label ?subTerm FROM <$graph> WHERE {
 	{
 		?term rdfs:subClassOf <$termIRI> .
 		FILTER (isIRI(?term)).
-		OPTIONAL {?term rdfs:label ?label} .
+		OPTIONAL {
+			?term rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		} .
 		OPTIONAL {?subTerm rdfs:subClassOf ?term}
 	} UNION {
 		?term owl:equivalentClass ?s1 .
 		FILTER (isIRI(?term)).
 		?s1 owl:intersectionOf ?s2 .
 		?s2 rdf:first <$termIRI> .
-		OPTIONAL {?term rdfs:label ?label} .
+		OPTIONAL {
+			?term rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		} .
 		OPTIONAL {?subTerm rdfs:subClassOf ?term}
 	} UNION {
 		?term rdfs:subClassOf <$termIRI> .
 		FILTER (isIRI(?term)).
-		OPTIONAL {?term rdfs:label ?label} .
+		OPTIONAL {
+			?term rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		} .
 		OPTIONAL {
 			?subTerm owl:equivalentClass ?s1 .
 			?s1 owl:intersectionOf ?s2 .
@@ -651,7 +669,10 @@ SELECT DISTINCT ?term ?label ?subTerm FROM <$graph> WHERE {
 		FILTER (isIRI(?term)).
 		?s1 owl:intersectionOf ?s2 .
 		?s2 rdf:first <$termIRI> .
-		OPTIONAL {?term rdfs:label ?label} .
+		OPTIONAL {
+			?term rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		} .
 		OPTIONAL {?subTerm owl:equivalentClass ?s3 .
 		?s3 owl:intersectionOf ?s4 .
 		?s4 rdf:first ?term}
@@ -674,7 +695,10 @@ SELECT DISTINCT ?term ?label ?subTerm FROM <$graph> WHERE {
 	{
 		?term rdfs:subClassOf <$termIRI> .
 		FILTER (isIRI(?term)).
-		OPTIONAL {?term rdfs:label ?label} .
+		OPTIONAL {
+			?term rdfs:label ?label .
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		}
 		OPTIONAL {?subTerm rdfs:subClassOf ?term}
 	}
 }
@@ -695,13 +719,19 @@ SELECT DISTINCT ?class ?label FROM <$graph> WHERE {
 	{
 		<$termIRI> rdfs:subClassOf ?class .
 		FILTER (isIRI(?class)).
-		OPTIONAL {?class rdfs:label ?label}
+		OPTIONAL {
+			?class rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		}
 	} UNION {
 		<$termIRI> owl:equivalentClass ?s1 .
 		?s1 owl:intersectionOf ?s2 .
 		?s2 rdf:first ?class  .
 		FILTER (isIRI(?class))
-		OPTIONAL {?class rdfs:label ?label}
+		OPTIONAL {
+			?class rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		}
 	}
 }
 END;
@@ -741,13 +771,19 @@ SELECT ?path ?link ?label FROM <{$graph}> WHERE {
 			{
 				?s rdfs:subPropertyOf ?o .
 				FILTER (isIRI(?o)).
-				OPTIONAL {?o rdfs:label ?label}
+				OPTIONAL {
+					?o rdfs:label ?label .
+					FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+				}
 			} UNION {
 				?s owl:equivalentProperty ?s1 .
 				?s1 owl:intersectionOf ?s2 .
 				?s2 rdf:first ?o  .
 				FILTER (isIRI(?o))
-				OPTIONAL {?o rdfs:label ?label}
+				OPTIONAL {
+					?o rdfs:label ?label .
+					FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+				}
 			}
 			FILTER ( ?s != ?o )
 		}
@@ -790,7 +826,10 @@ PREFIX owl: <{$this->prefixNS['owl']}>
 SELECT DISTINCT ?ref ?refp ?label ?o FROM <$graph> WHERE {
 	?ref ?refp ?o .
 	FILTER ( ?refp IN ( owl:equivalentClass, rdfs:subClassOf ) ) .
-	OPTIONAL { ?ref rdfs:label ?label } .
+	OPTIONAL {
+		?ref rdfs:label ?label
+		FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+	} .
 	{
 		{
 			SELECT ?s ?o FROM <$graph> WHERE {
@@ -924,14 +963,20 @@ SELECT DISTINCT ?term ?label ?subTerm FROM <$graph> WHERE {
 	{
 		?term rdfs:subPropertyOf <$termIRI> .
 		FILTER (isIRI(?term)).
-		OPTIONAL {?term rdfs:label ?label} .
+		OPTIONAL {
+			?term rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		} .
 		OPTIONAL {?subTerm rdfs:subPropertyOf ?term}
 	} UNION {
 		?term owl:equivalentProperty ?s1 .
 		FILTER (isIRI(?term)).
 		?s1 owl:intersectionOf ?s2 .
 		?s2 rdf:first <$termIRI> .
-		OPTIONAL {?term rdfs:label ?label} .
+		OPTIONAL {
+			?term rdfs:label ?label
+			FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+		} .
 		OPTIONAL {?subTerm rdfs:subPropertyOf ?term}
 	}
 }
@@ -1043,7 +1088,10 @@ PREFIX owl: <{$this->prefixNS['owl']}>
 SELECT DISTINCT ?ref ?refp ?label ?o FROM <$graph> WHERE {
 	?ref ?refp ?o .
 	FILTER ( ?refp IN ( owl:equivalentClass, rdfs:subClassOf ) ) .
-	OPTIONAL { ?ref rdfs:label ?label } .
+	OPTIONAL {
+		?ref rdfs:label ?label
+		FILTER(LANG(?label) = "" || LANG(?label) = 'en')
+	} .
 	{
 		{
 			SELECT ?s ?o FROM <$graph> WHERE {
